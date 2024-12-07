@@ -22,14 +22,12 @@ class Track
         json += ","
       end
       json += '['
-      tsj = ''
-      segment.coordinates.each do |coordinates|
-        if tsj != ''
-          tsj += ','
+      segment.coordinates.each_with_index do |coordinates, coordinate_count|
+        if coordinate_count != 0
+          json += ','
         end
-        tsj = coordinates.append_coords_json(tsj)
+        json = coordinates.append_coords_json(json)
       end
-      json += tsj
       json += ']'
     end
     json + ']}}'
