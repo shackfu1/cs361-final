@@ -2,6 +2,8 @@
 -Changed variable names to be more clear
 -Cleaned up formatting to be more consistent
 -Removed useless comments
+-changed "get_track_json" and "get_waypoint_json" to both be just "get_json", so to_geojson doesn't have to check the class of the feature before calling them, it just calls get_json
+-
 
 
 ## GIS Tool
