@@ -1,3 +1,9 @@
+## Changes made
+-Changed variable names to be more clear
+-Cleaned up formatting to be more consistent
+-Removed useless comments
+
+
 ## GIS Tool
 
 Geographic Information Systems program.
