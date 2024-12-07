@@ -23,17 +23,11 @@ class Track
       end
       json += '['
       tsj = ''
-      segment.coordinates.each do |c|
+      segment.coordinates.each do |coordinates|
         if tsj != ''
           tsj += ','
         end
-        # Add the coordinate
-        tsj += '['
-        tsj += "#{c.lon},#{c.lat}"
-        if c.ele != nil
-          tsj += ",#{c.ele}"
-        end
-        tsj += ']'
+        tsj = coordinates.append_coords_json(tsj)
       end
       json += tsj
       json += ']'
@@ -60,16 +54,23 @@ class Point
     @lat = lat
     @ele = ele
   end
+
+  def append_coords_json(json)
+    json += "[#{@lon},#{@lat}"
+    if ele != nil
+      json += ",#{@ele}"
+    end
+    json += ']'
+    return json
+  end
 end
 
 class Waypoint
 
-  attr_reader :lat, :lon, :ele, :name, :type
+  attr_reader :coordinates, :name, :type
 
-  def initialize(lon, lat, ele=nil, name=nil, type=nil)
-    @lat = lat
-    @lon = lon
-    @ele = ele
+  def initialize(coordinates, name=nil, type=nil)
+    @coordinates = coordinates
     @name = name
     @type = type
   end
@@ -77,11 +78,8 @@ class Waypoint
   def get_json(indent=0)
     json = '{"type": "Feature",'
     json += '"geometry": {"type": "Point","coordinates": '
-    json += "[#{@lon},#{@lat}"
-    if ele != nil
-      json += ",#{@ele}"
-    end
-    json += ']},'
+    json = coordinates.append_coords_json(json)
+    json += '},'
     if name != nil or type != nil
       json += '"properties": {'
       if name != nil
@@ -125,8 +123,8 @@ end
 
 def main()
 
-  waypoint1 = Waypoint.new(-121.5, 45.5, 30, "home", "flag")
-  waypoint2 = Waypoint.new(-121.5, 45.6, nil, "store", "dot")
+  waypoint1 = Waypoint.new(Point.new(-121.5, 45.5, 30), "home", "flag")
+  waypoint2 = Waypoint.new(Point.new(-121.5, 45.6, nil), "store", "dot")
   
   track_segment1 = 
   TrackSegment.new([

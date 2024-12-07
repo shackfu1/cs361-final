@@ -2,8 +2,10 @@
 -Changed variable names to be more clear
 -Cleaned up formatting to be more consistent
 -Removed useless comments
--changed "get_track_json" and "get_waypoint_json" to both be just "get_json", so to_geojson doesn't have to check the class of the feature before calling them, it just calls get_json
--injected Track's TrackSegment dependency into its arguments
+-Changed "get_track_json" and "get_waypoint_json" to both be just "get_json", so to_geojson doesn't have to check the class of the feature before calling them, it just calls get_json
+-Injected Track's TrackSegment dependency into its arguments
+-Waypoint now uses the Point class instead of separate lattitude, longitude, and elevation values
+-Added a new method to Point that appends the coordinate values to a json string, in order to adhere to DRY
 
 
 ## GIS Tool
