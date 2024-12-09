@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 class Track
+  
   def initialize(segments, name=nil)
     @name = name
     @segments = segments
