@@ -23,6 +23,9 @@ class Track
 
   def append_segments_json(json)
     @segments.each_with_index do |segment, index|
+      if index > 0
+        json += ","
+      end
       json = segment.append_segment_json(json)
     end
     return json
@@ -38,15 +41,12 @@ class TrackSegment
   end
 
   def append_segment_json(json)
-    if index > 0
-      json += ","
-    end
     json += '['
-    segment.coordinates.each_with_index do |coordinates, coordinate_count|
+    @coordinates.each_with_index do |coordinate, coordinate_count|
       if coordinate_count != 0
         json += ','
       end
-      json = coordinates.append_coords_json(json)
+      json = coordinate.append_coords_json(json)
     end
     json += ']'
     return json
