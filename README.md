@@ -7,6 +7,9 @@
 -Waypoint now uses the Point class instead of separate lattitude, longitude, and elevation values
 -Added a new method to Point that appends the coordinate values to a json string, in order to adhere to DRY
 -Removed the "tsj" variable from Track completely, as it's just confusing and clutters the code
+-Isolated Track's dependency on TrackSegment into its own method called append_segments_json
+-Created a method in TrackSegment called append_segment, which is used by append_segments_json, in order to adhere to SRP (Track would have an extra reason to change if TrackSegment ever changed)
+-
 
 
 ## GIS Tool

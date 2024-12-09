@@ -17,20 +17,15 @@ class Track
     json += '"geometry": {'
     json += '"type": "MultiLineString",'
     json +='"coordinates": ['
-    @segments.each_with_index do |segment, index|
-      if index > 0
-        json += ","
-      end
-      json += '['
-      segment.coordinates.each_with_index do |coordinates, coordinate_count|
-        if coordinate_count != 0
-          json += ','
-        end
-        json = coordinates.append_coords_json(json)
-      end
-      json += ']'
-    end
+    json = append_segments_json(json)
     json + ']}}'
+  end
+
+  def append_segments_json(json)
+    @segments.each_with_index do |segment, index|
+      json = segment.append_segment_json(json)
+    end
+    return json
   end
 end
 
@@ -40,6 +35,21 @@ class TrackSegment
 
   def initialize(coordinates)
     @coordinates = coordinates
+  end
+
+  def append_segment_json(json)
+    if index > 0
+      json += ","
+    end
+    json += '['
+    segment.coordinates.each_with_index do |coordinates, coordinate_count|
+      if coordinate_count != 0
+        json += ','
+      end
+      json = coordinates.append_coords_json(json)
+    end
+    json += ']'
+    return json
   end
 end
 
