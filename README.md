@@ -9,7 +9,6 @@
 -Removed the "tsj" variable from Track completely, as it's just confusing and clutters the code
 -Isolated Track's dependency on TrackSegment into its own method called append_segments_json
 -Created a method in TrackSegment called append_segment, which is used by append_segments_json, in order to adhere to SRP (Track would have an extra reason to change if TrackSegment ever changed)
--
 
 
 ## GIS Tool
